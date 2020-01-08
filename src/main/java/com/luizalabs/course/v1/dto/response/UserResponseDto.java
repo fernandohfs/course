@@ -1,5 +1,6 @@
 package com.luizalabs.course.v1.dto.response;
 
+import com.luizalabs.course.dbo.models.Order;
 import com.luizalabs.course.dbo.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,8 @@ public class UserResponseDto implements Serializable {
   private String phone;
   private String password;
 
+  private List<Order> orders = new ArrayList<>();
+
   public static List<UserResponseDto> usersToUsersDto(List<User> users) {
     List<UserResponseDto> usersDto = new ArrayList<>();
 
@@ -34,6 +37,7 @@ public class UserResponseDto implements Serializable {
           .email(user.getEmail())
           .phone(user.getPhone())
           .password(user.getPassword())
+          .orders(user.getOrders())
           .build());
     });
 
@@ -47,6 +51,7 @@ public class UserResponseDto implements Serializable {
         .email(user.getEmail())
         .phone(user.getPhone())
         .password(user.getPassword())
+        .orders(user.getOrders())
         .build();
   }
 
