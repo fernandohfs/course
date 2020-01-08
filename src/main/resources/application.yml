@@ -1,3 +1,9 @@
+application:
+  env: ${ENV:development}
+  name: '@pom.name@'
+  description: '@pom.description@'
+  version: '@pom.version@'
+
 spring:
   profiles:
     active: "test"

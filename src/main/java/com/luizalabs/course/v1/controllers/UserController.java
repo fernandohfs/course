@@ -1,44 +1,42 @@
 package com.luizalabs.course.v1.controllers;
 
-import com.luizalabs.course.dbo.models.User;
+import com.luizalabs.course.business.UserBusiness;
+import com.luizalabs.course.v1.dto.response.UserResponseDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/v1/users")
 public class UserController {
 
+  private UserBusiness userBusiness;
+
+  @Autowired
+  public UserController(final UserBusiness userBusiness) {
+    this.userBusiness = userBusiness;
+  }
+
   @GetMapping
-  public ResponseEntity<List<User>> findAll() {
+  public ResponseEntity<List<UserResponseDto>> findAll() {
+    Optional<List<UserResponseDto>> users = userBusiness.findAll();
 
-    User fernando = User.builder()
-        .id(1L)
-        .name("Fernando")
-        .email("fernando@gmail.com")
-        .phone("16999999999")
-        .password("123456")
-        .build();
+    return ResponseEntity.status(HttpStatus.OK).body(users.orElse(new ArrayList<>()));
+  }
 
-    User amanda = User.builder()
-        .id(2L)
-        .name("Amanda")
-        .email("amanda@gmail.com")
-        .phone("16999999998")
-        .password("123456")
-        .build();
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
+    Optional<UserResponseDto> user = userBusiness.findById(id);
 
-    List<User> users = new ArrayList<>();
-
-    users.add(fernando);
-    users.add(amanda);
-
-    return ResponseEntity.ok().body(users);
-
+    return ResponseEntity.status(HttpStatus.OK).body(user.orElse(null));
   }
 
 }
