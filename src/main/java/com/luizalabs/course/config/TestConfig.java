@@ -1,7 +1,9 @@
 package com.luizalabs.course.config;
 
+import com.luizalabs.course.dbo.models.Category;
 import com.luizalabs.course.dbo.models.Order;
 import com.luizalabs.course.dbo.models.User;
+import com.luizalabs.course.dbo.repositories.CategoryRepository;
 import com.luizalabs.course.dbo.repositories.OrderRepository;
 import com.luizalabs.course.dbo.repositories.UserRepository;
 import com.luizalabs.course.enumeration.OrderStatus;
@@ -19,12 +21,15 @@ public class TestConfig implements CommandLineRunner {
 
   private UserRepository userRepository;
   private OrderRepository orderRepository;
+  private CategoryRepository categoryRepository;
 
   @Autowired
   public TestConfig(final UserRepository userRepository,
-                    final OrderRepository orderRepository) {
+                    final OrderRepository orderRepository,
+                    final CategoryRepository categoryRepository) {
     this.userRepository = userRepository;
     this.orderRepository = orderRepository;
+    this.categoryRepository = categoryRepository;
   }
 
   @Override
@@ -67,8 +72,24 @@ public class TestConfig implements CommandLineRunner {
         .client(user1)
         .build();
 
+    Category category1 = Category.builder()
+        .id(null)
+        .name("Electronics")
+        .build();
+
+    Category category2 = Category.builder()
+        .id(null)
+        .name("Books")
+        .build();
+
+    Category category3 = Category.builder()
+        .id(null)
+        .name("Computers")
+        .build();
+
     userRepository.saveAll(Arrays.asList(user1, user2));
     orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+    categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
 
   }
 }
