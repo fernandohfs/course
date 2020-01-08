@@ -3,6 +3,7 @@ package com.luizalabs.course.v1.dto.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luizalabs.course.dbo.models.Order;
 import com.luizalabs.course.dbo.models.User;
+import com.luizalabs.course.enumeration.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class OrderResponseDto implements Serializable {
 
   private Long id;
   private Instant moment;
+  private Integer orderStatus;
 
   @JsonIgnore
   private User client;
@@ -34,6 +36,7 @@ public class OrderResponseDto implements Serializable {
       ordersDto.add(OrderResponseDto.builder()
           .id(order.getId())
           .moment(order.getMoment())
+          .orderStatus(order.getOrderStatus().getCode())
           .client(order.getClient())
           .build());
     });
@@ -45,6 +48,7 @@ public class OrderResponseDto implements Serializable {
     return OrderResponseDto.builder()
         .id(order.getId())
         .moment(order.getMoment())
+        .orderStatus(order.getOrderStatus().getCode())
         .client(order.getClient())
         .build();
   }

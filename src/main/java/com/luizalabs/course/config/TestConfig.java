@@ -4,6 +4,7 @@ import com.luizalabs.course.dbo.models.Order;
 import com.luizalabs.course.dbo.models.User;
 import com.luizalabs.course.dbo.repositories.OrderRepository;
 import com.luizalabs.course.dbo.repositories.UserRepository;
+import com.luizalabs.course.enumeration.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -48,18 +49,21 @@ public class TestConfig implements CommandLineRunner {
     Order order1 = Order.builder()
         .id(null)
         .moment(Instant.parse("2019-06-20T19:53:07Z"))
+        .orderStatus(OrderStatus.PAID.getCode())
         .client(user1)
         .build();
 
     Order order2 = Order.builder()
         .id(null)
         .moment(Instant.parse("2019-07-21T03:42:10Z"))
+        .orderStatus(OrderStatus.WAITING_PAYMENT.getCode())
         .client(user2)
         .build();
 
     Order order3 = Order.builder()
         .id(null)
         .moment(Instant.parse("2019-06-22T15:21:22Z"))
+        .orderStatus(OrderStatus.WAITING_PAYMENT.getCode())
         .client(user1)
         .build();
 
