@@ -2,9 +2,11 @@ package com.luizalabs.course.config;
 
 import com.luizalabs.course.dbo.models.Category;
 import com.luizalabs.course.dbo.models.Order;
+import com.luizalabs.course.dbo.models.Product;
 import com.luizalabs.course.dbo.models.User;
 import com.luizalabs.course.dbo.repositories.CategoryRepository;
 import com.luizalabs.course.dbo.repositories.OrderRepository;
+import com.luizalabs.course.dbo.repositories.ProductRepository;
 import com.luizalabs.course.dbo.repositories.UserRepository;
 import com.luizalabs.course.enumeration.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +24,17 @@ public class TestConfig implements CommandLineRunner {
   private UserRepository userRepository;
   private OrderRepository orderRepository;
   private CategoryRepository categoryRepository;
+  private ProductRepository productRepository;
 
   @Autowired
   public TestConfig(final UserRepository userRepository,
                     final OrderRepository orderRepository,
-                    final CategoryRepository categoryRepository) {
+                    final CategoryRepository categoryRepository,
+                    final ProductRepository productRepository) {
     this.userRepository = userRepository;
     this.orderRepository = orderRepository;
     this.categoryRepository = categoryRepository;
+    this.productRepository = productRepository;
   }
 
   @Override
@@ -87,9 +92,55 @@ public class TestConfig implements CommandLineRunner {
         .name("Computers")
         .build();
 
+    Product product1 = Product.builder()
+        .id(null)
+        .name("The Lord of the Rings")
+        .description("Lorem ipsum dolor sit amet, consectetur.")
+        .price(90.5)
+        .imgUrl("")
+        .category(category2)
+        .build();
+
+    Product product2 = Product.builder()
+        .id(null)
+        .name("Smart TV")
+        .description("Nulla eu imperdiet purus. Maecenas ante.")
+        .price(2190.0)
+        .imgUrl("")
+        .category(category1)
+        .build();
+
+    Product product3 = Product.builder()
+        .id(null)
+        .name("Macbook Pro")
+        .description("Nam eleifend maximus tortor, at mollis.")
+        .price(1250.0)
+        .imgUrl("")
+        .category(category3)
+        .build();
+
+    Product product4 = Product.builder()
+        .id(null)
+        .name("PC Gamer")
+        .description("Donec aliquet odio ac rhoncus cursus.")
+        .price(1200.0)
+        .imgUrl("")
+        .category(category3)
+        .build();
+
+    Product product5 = Product.builder()
+        .id(null)
+        .name("Rails for Dummies")
+        .description("Cras fringilla convallis sem vel faucibus.")
+        .price(100.99)
+        .imgUrl("")
+        .category(category1)
+        .build();
+
     userRepository.saveAll(Arrays.asList(user1, user2));
     orderRepository.saveAll(Arrays.asList(order1, order2, order3));
     categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
+    productRepository.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
 
   }
 }
