@@ -26,7 +26,6 @@ public class ProductResponseDto implements Serializable {
   private Double price;
   private String imgUrl;
 
-  @JsonIgnore
   private Category category;
 
   public static List<ProductResponseDto> productsToProductsDto(List<Product> products) {

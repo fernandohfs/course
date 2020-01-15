@@ -35,7 +35,6 @@ public class Product implements Serializable {
   private Double price;
   private String imgUrl;
 
-  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;

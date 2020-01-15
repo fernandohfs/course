@@ -1,5 +1,6 @@
 package com.luizalabs.course.v1.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luizalabs.course.dbo.models.Category;
 import com.luizalabs.course.dbo.models.Product;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class CategoryResponseDto implements Serializable {
   private Long id;
   private String name;
 
+  @JsonIgnore
   private List<Product> products;
 
   public static List<CategoryResponseDto> categoriesToCategoriesDto(List<Category> categories) {

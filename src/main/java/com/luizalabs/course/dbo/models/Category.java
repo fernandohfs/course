@@ -1,5 +1,6 @@
 package com.luizalabs.course.dbo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,7 @@ public class Category implements Serializable {
   private Long id;
   private String name;
 
+  @JsonIgnore
   @Setter(AccessLevel.NONE)
   @OneToMany(mappedBy = "category")
   private List<Product> products = new ArrayList<>();
